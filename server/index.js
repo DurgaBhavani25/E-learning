@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 import {connectDb} from "./database/db.js"
 dotenv.config();
 const app=express()
+//using middlewares
+app.use(express.json());
 const port=process.env.port;
 app.get('/',(req,res)=>{
     res.send('Server Running');
