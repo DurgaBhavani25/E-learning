@@ -2,9 +2,10 @@ import { User } from "../models/User.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import sendMail from "../middlewares/sendMail.js";
-export const register=async(req,res)=>{
-    try{
-        const { email, name,password }=req.body;
+import TryCatch from "../middlewares/TryCatch.js";
+
+export const register=TryCatch(async(req,res)=>{
+    const { email, name,password }=req.body;
         let user = await User.findOne({ email });
     
     if (user)
@@ -44,9 +45,24 @@ export const register=async(req,res)=>{
     message: "Otp send to your mail",
     activationToken,
   });
-    }catch(error){
-        res.status(500).json({
-            message:error.message,
-        });
-    }
-}
+});
+export const verifyUser=TryCatch(async(req,res)=>{
+    const {otp,activationToken}=req.body
+    const verify=jwt.verify(activationToken,process.env.Activation_Secret);
+    if(!verify)
+        return res.status(400).json({
+    message:"OTP expired",
+    });
+    if(verify.otp!==otp)
+        return res.status(400).json({
+    message:"Wrong Otp",
+    });
+    await User.create({
+        name:verify.user.name,
+        email:verify.user.email,
+        password:verify.user.password,
+    })
+    res.json({
+        message: "User Registered",
+    })
+});
