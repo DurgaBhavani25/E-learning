@@ -11,8 +11,13 @@ app.get('/',(req,res)=>{
 });
 // importing routes
 import userRouter from './routes/user.js'
+import courseRoutes from './routes/course.js'
+import adminRoutes from './routes/admin.js'
 //using routes
+app.use('/uploads', express.static('uploads'));
 app.use('/api',userRouter);
+app.use('/api',courseRoutes);
+app.use('/api',adminRoutes);
 app.listen(port,()=>{
     console.log(`server is running on port http://localhost:${port}`);
     connectDb();
