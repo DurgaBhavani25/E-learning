@@ -3,6 +3,7 @@ import {isAuth,isAdmin} from "../middlewares/isAuth.js";
 import { addLectures,
          createCourse ,
          deleteLecture,
+         deleteCourse,
          getAllStats
         } from '../controllers/admin.js';
 import { uploadFiles } from "../middlewares/multer.js";
