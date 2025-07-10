@@ -1,18 +1,24 @@
-import React from 'react';
+import React from "react";
 import "./header.css";
-import {Link} from "react-router-dom";
-const Header = () => {
-  return (
-   <header>
-    <div className="logo">E-learning</div>
-    <div className="link">
-        <Link to={'/'}>Home</Link>
-        <Link to={'/courses'}>Courses</Link>
-        <Link to={'/about'}>About</Link>
-        <Link to={'/account'}>Account</Link>
-    </div>
-   </header>
-  )
-}
+import { Link } from "react-router-dom";
 
-export default Header
+const Header = ({ isAuth }) => {
+  return (
+    <header>
+      <div className="logo">E-Learning</div>
+
+      <div className="link">
+        <Link to={"/"}>Home</Link>
+        <Link to={"/courses"}>Courses</Link>
+        <Link to={"/about"}>About</Link>
+        {isAuth ? (
+          <Link to={"/account"}>Account</Link>
+        ) : (
+          <Link to={"/login"}>Login</Link>
+        )}
+      </div>
+    </header>
+  );
+};
+
+export default Header;
