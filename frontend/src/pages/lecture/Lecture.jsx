@@ -74,7 +74,8 @@ const Lecture = ({ user }) => {
 
     myForm.append("title", title);
     myForm.append("description", description);
-    myForm.append("file", video);
+    myForm.append("video", video); // ✅ correct
+
 
     try {
       const { data } = await axios.post(

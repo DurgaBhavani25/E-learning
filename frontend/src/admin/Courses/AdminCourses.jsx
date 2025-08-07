@@ -57,7 +57,7 @@ const AdminCourses = ({ user }) => {
     myForm.append("price", price);
     myForm.append("createdBy", createdBy);
     myForm.append("duration", duration);
-    myForm.append("file", image);
+    myForm.append("image", image);
 
     try {
       const { data } = await axios.post(`${server}/api/course/new`, myForm, {
